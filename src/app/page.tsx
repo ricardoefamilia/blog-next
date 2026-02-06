@@ -1,5 +1,23 @@
-export default function Home() {
-  return <h1>Olá, de dentro da page.tsx</h1>;
+import { PostsList } from "@/components/PostsList";
+import { SpinLoader } from "@/components/SpinLoader";
+import { Suspense } from "react";
+
+export default async function HomePage() {
+  return (
+    <div>
+      <header>
+        <h1 className="text-6xl font-bold text-center py-8">Aqui é a HEADER</h1>
+      </header>
+
+      <Suspense fallback={<SpinLoader />}>
+        <PostsList />
+      </Suspense>
+
+      <footer>
+        <p className="text-6xl font-bold text-center py-8">Footer</p>
+      </footer>
+    </div>
+  );
 }
 
 // app/page.tsx é o arquivo que representa a página inicial do aplicativo Next.js. é como o index.html em um site tradicional.
