@@ -5,7 +5,7 @@ import React from "react";
 type PostHeadingProps = {
   children: React.ReactNode;
   url: string;
-  as?: "h1" | "h2" | "h3";
+  as?: "h1" | "h2";
 };
 
 export function PostHeading({
@@ -14,16 +14,17 @@ export function PostHeading({
   as: Tag = "h2",
 }: PostHeadingProps) {
   const headingClassesMap = {
-    h1: "text-3xl/tight font-extrabold sm:text-4xl/normal",
-    h2: "text-2xl/tight font-extrabold sm:text-3xl/normal",
-    h3: "text-1xl/tight font-extrabold sm:text-2xl/normal",
+    h1: "text-2xl/tight sm:text-4xl font-extrabold",
+    h2: "text-2xl/tight font-bold",
   };
 
-  const commonClasses = "font-extrabold";
+  const commonClasses = "";
 
   return (
     <Tag className={clsx(commonClasses, headingClassesMap[Tag])}>
-      <Link href={url}>{children}</Link>
+      <Link className="group-hover:text-slate-600 transition" href={url}>
+        {children}
+      </Link>
     </Tag>
   );
 }
