@@ -3,6 +3,7 @@ import "./globals.css";
 import { Container } from "@/components/Container";
 import { Header } from "@/components/Header";
 import { ThemeToggleButton } from "@/components/Theme/ThemeToggleButton";
+import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: {
@@ -24,9 +25,7 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
           <Header />
           <ThemeToggleButton />
           {children}
-          <footer>
-            <p className="text-6xl font-bold text-center py-8">Footer</p>
-          </footer>
+          <Footer />
         </Container>
       </body>
     </html>

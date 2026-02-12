@@ -11,7 +11,7 @@ export function Header() {
           "lg:text-7xl/normal lg:font-extrabold py-12",
         )}
       >
-        <a href="#">The Blog</a>
+        <a href="/">The Blog</a>
       </h1>
     </header>
   );
