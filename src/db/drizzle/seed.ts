@@ -2,7 +2,7 @@ import "dotenv/config";
 import { drizzleDb } from "./index"; // conexão Postgres
 import { JsonPostRepository } from "@/repositories/post/json-post-repository";
 import { postsTable } from "./schemas";
-import { sql } from "drizzle-orm";
+// import { sql } from "drizzle-orm";
 
 async function main() {
   try {
