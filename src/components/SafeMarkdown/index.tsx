@@ -32,7 +32,7 @@ export function SafeMarkdown({ markdown }: SafeMarkdownProps) {
 
             return (
               <div className="overflow-x-auto">
-                <table className="w-full min-w-[600px]" {...props} />
+                <table className="w-full min-w-150" {...props} />
               </div>
             );
           },
