@@ -11,5 +11,5 @@ export const drizzleDb = drizzle(pool, {
   schema: {
     posts: postsTable,
   },
-  logger: false, // Desativa o logger para evitar mensagens de log desnecessárias
+  logger: false, // Ative/desativar o logger para ver/não ver as queries geradas
 });
