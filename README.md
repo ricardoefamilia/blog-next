@@ -10,17 +10,17 @@ Aplicação **Next.js** com persistência em **PostgreSQL (Docker)**
 utilizando **Drizzle ORM**, organizada com princípios de **Clean
 Architecture**.
 
-------------------------------------------------------------------------
+---
 
 # 📚 Tecnologias
 
--   ⚡ Next.js
--   🐘 PostgreSQL
--   🧩 Drizzle ORM
--   🐳 Docker Compose
--   🟦 TypeScript
+- ⚡ Next.js
+- 🐘 PostgreSQL
+- 🧩 Drizzle ORM
+- 🐳 Docker Compose
+- 🟦 TypeScript
 
-------------------------------------------------------------------------
+---
 
 # 🏗️ Arquitetura
 
@@ -40,87 +40,89 @@ Fluxo simplificado:
        ↓
     PostgreSQL (Docker)
 
-------------------------------------------------------------------------
+---
 
 # 🚀 Como rodar o projeto
 
 ## 📋 Pré-requisitos
 
--   Node.js 18+
--   Docker
--   Docker Compose
+- Node.js 18+
+- Docker
+- Docker Compose
 
-------------------------------------------------------------------------
+---
 
 ## 1️⃣ Clonar o projeto
 
-``` bash
+```bash
 git clone <url-do-repositorio>
 cd blog-next
 ```
 
-------------------------------------------------------------------------
+---
 
 ## 2️⃣ Subir o banco de dados (Docker)
 
-``` bash
+```bash
 docker compose up -d
 ```
 
 Configuração do banco:
 
-  Configuração   Valor
-  -------------- ----------
-  Porta          5433
-  Usuário        postgres
-  Senha          admin123
-  Banco          blognext
+Configuração Valor
+
+---
+
+Porta 5433
+Usuário postgres
+Senha suasenha
+Banco blognext
 
 Verifique:
 
-``` bash
+```bash
 docker ps
 ```
 
-------------------------------------------------------------------------
+---
 
 ## 3️⃣ Criar arquivo `.env`
 
 Na raiz do projeto:
 
-``` env
+```env
 DATABASE_URL=postgresql://postgres:admin123@localhost:5433/blognext
 ```
 
-------------------------------------------------------------------------
+---
 
 ## 4️⃣ Instalar dependências
 
-``` bash
+```bash
 npm install
 ```
 
-------------------------------------------------------------------------
+---
 
 ## 5️⃣ Criar as tabelas (Drizzle)
 
-``` bash
+```bash
 npx drizzle-kit push
 ```
 
-------------------------------------------------------------------------
+---
 
 ## 6️⃣ Popular o banco (Seed)
 
-``` bash
+```bash
 npx tsx src/db/drizzle/seed.ts
 ```
 
-------------------------------------------------------------------------
+---
 
 ## 7️⃣ Rodar o Next.js
 
-``` bash
+```bash
 npm run dev
 ```
 
@@ -128,45 +130,47 @@ A aplicação estará disponível em:
 
 http://localhost:3000
 
-------------------------------------------------------------------------
+---
 
 # 🧪 Testando o banco manualmente
 
-``` bash
+```bash
 docker exec -it blognext_postgres psql -U postgres -d blognext
 ```
 
 Comandos úteis:
 
-``` sql
+```sql
 \dt
 SELECT * FROM posts;
 ```
 
-------------------------------------------------------------------------
+---
 
 # 🛠️ Scripts úteis
 
-  Comando                  Descrição
-  ------------------------ ----------------------
-  docker compose up -d     Sobe o banco
-  docker compose down      Para o banco
-  docker compose down -v   Remove banco e dados
-  npx drizzle-kit push     Sincroniza schema
-  npm run dev              Inicia aplicação
+Comando Descrição
 
-------------------------------------------------------------------------
+---
+
+docker compose up -d Sobe o banco
+docker compose down Para o banco
+docker compose down -v Remove banco e dados
+npx drizzle-kit push Sincroniza schema
+npm run dev Inicia aplicação
+
+---
 
 # 🔥 Reset completo do ambiente
 
-``` bash
+```bash
 docker compose down -v
 docker compose up -d
 npx drizzle-kit push
 npx tsx src/db/drizzle/seed.ts
 ```
 
-------------------------------------------------------------------------
+---
 
 # 📁 Estrutura do Projeto
 
@@ -181,7 +185,7 @@ npx tsx src/db/drizzle/seed.ts
      ├── application/
      └── presentation/
 
-------------------------------------------------------------------------
+---
 
 # 🐞 Troubleshooting
 
@@ -189,50 +193,50 @@ npx tsx src/db/drizzle/seed.ts
 
 Verifique:
 
--   Porta 5433
--   DATABASE_URL correta
--   Container ativo (docker ps)
+- Porta 5433
+- DATABASE_URL correta
+- Container ativo (docker ps)
 
 ## Banco não existe
 
-``` bash
+```bash
 docker compose down -v
 docker compose up -d
 ```
 
-------------------------------------------------------------------------
+---
 
 # 👨‍💻 Autor
 
 Projeto desenvolvido para fins de estudo e prática com:
 
--   Drizzle ORM
--   PostgreSQL + Docker
--   Clean Architecture
--   Integração com Next.js
+- Drizzle ORM
+- PostgreSQL + Docker
+- Clean Architecture
+- Integração com Next.js
 
-------------------------------------------------------------------------
+---
 
 # 📜 Licença
 
 Uso educacional.
 
-------------------------------------------------------------------------
+---
 
 # ⚡ Next.js Setup (Base Template Information)
 
 This project was bootstrapped with:
 
--   [Next.js](https://nextjs.org)
--   [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app)
+- [Next.js](https://nextjs.org)
+- [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app)
 
-------------------------------------------------------------------------
+---
 
 ## ▶️ Getting Started (Next.js Development)
 
 To start the development server:
 
-``` bash
+```bash
 npm run dev
 # or
 yarn dev
@@ -252,28 +256,28 @@ You can begin editing the main page at:
 
     app/page.tsx
 
-------------------------------------------------------------------------
+---
 
 ## 🔤 Font Optimization
 
 This project uses:
 
--   [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts)
+- [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts)
 
 It automatically optimizes and loads the **Geist** font family from
 Vercel.
 
-------------------------------------------------------------------------
+---
 
 # 📘 Learn More About Next.js
 
 If you're new to Next.js or want to explore advanced features:
 
--   [Next.js Documentation](https://nextjs.org/docs)
--   [Learn Next.js Interactive Tutorial](https://nextjs.org/learn)
--   [Next.js GitHub Repository](https://github.com/vercel/next.js)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Learn Next.js Interactive Tutorial](https://nextjs.org/learn)
+- [Next.js GitHub Repository](https://github.com/vercel/next.js)
 
-------------------------------------------------------------------------
+---
 
 # 🚀 Deploy on Vercel
 
@@ -284,19 +288,19 @@ Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_
 
 For deployment details, see:
 
--   [Next.js Deployment
-    Documentation](https://nextjs.org/docs/app/building-your-application/deploying)
+- [Next.js Deployment
+  Documentation](https://nextjs.org/docs/app/building-your-application/deploying)
 
-------------------------------------------------------------------------
+---
 
 # 🏁 Final Notes
 
 This project integrates:
 
--   Next.js (Frontend)
--   Drizzle ORM (Database Layer)
--   PostgreSQL via Docker (Local Development)
--   Clean Architecture structure
+- Next.js (Frontend)
+- Drizzle ORM (Database Layer)
+- PostgreSQL via Docker (Local Development)
+- Clean Architecture structure
 
 Make sure Docker is running before starting development if the
 application depends on database connectivity.
