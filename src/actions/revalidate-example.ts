@@ -8,5 +8,6 @@ export async function revalidateExampleAction(formData: FormData) {
   console.log("Estou em uma server action", path);
 
   // revalidatePath(`${path}`);
-  revalidateTag("randomuser", "max");
+  revalidateTag("posts", "max"); // home
+  revalidateTag("post-rotina-matinal-de-pessoas-altamente-eficazes", "max"); // single
 }
