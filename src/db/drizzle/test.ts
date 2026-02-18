@@ -1,4 +1,5 @@
 // import "dotenv/config";
+// import { eq } from 'drizzle-orm';
 // import { drizzleDb } from "./index";
 // import { postsTable } from "./schemas";
 
@@ -12,6 +13,13 @@
 //       console.log(post.author);
 //       console.log();
 //     });
+//     await drizzleDb
+//       .update(postsTable)
+//       .set({
+//         title: 'Rotina matinal de pessoas altamente eficazes',
+//         published: true,
+//       })
+//       .where(eq(postsTable.slug, 'rotina-matinal-de-pessoas-altamente-eficazes'));
 //   } catch (error) {
 //     console.error("Erro ao buscar posts:", error);
 //   } finally {
