@@ -1,11 +1,11 @@
-import PostsListAdmin from "@/components/PostsListAdmin";
+import PostsListAdmin from "@/components/admin/PostsListAdmin";
 import { SpinLoader } from "@/components/SpinLoader";
-import { Metadata } from "next";
 import { Suspense } from "react";
+import { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Posts Admin",
 };
 
