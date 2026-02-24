@@ -21,4 +21,23 @@ import type { NextConfig } from "next";
 // };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const nextConfig: NextConfig = {};
+const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "localhost",
+        port: "3000",
+        pathname: "/**",
+        search: "",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "3000",
+        pathname: "/**",
+        search: "",
+      },
+    ],
+  },
+};
