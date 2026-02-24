@@ -1,64 +1,120 @@
 import { PostRepository } from "./post-repository";
 import { PostModel } from "@/models/post/post-model";
 import { drizzleDb } from "@/db/drizzle";
-import { PostsTableSelectMode } from "@/db/drizzle/schemas";
 import { logColor } from "@/utils/log-color";
-import { asyncDelay } from "@/utils/async-delay";
-import { SIMULATE_WAIT_IN_MS } from "@/lib/constants";
+import { postsTable } from "@/db/drizzle/schemas";
+import { eq } from "drizzle-orm";
 
 export class DrizzlePostRepository implements PostRepository {
-  private mapToPostModel(post: PostsTableSelectMode): PostModel {
-    return {
-      ...post,
-      createdAt: post.createdAt.toISOString(),
-      updatedAt: post.updatedAt.toISOString(),
-    };
-  }
-
   async findAllPublic(): Promise<PostModel[]> {
-    await asyncDelay(SIMULATE_WAIT_IN_MS, true);
+    // await asyncDelay(SIMULATE_WAIT_IN_MS, true);
     logColor("findAllPublic", Date.now());
+
     const posts = await drizzleDb.query.posts.findMany({
       orderBy: (posts, { desc }) => desc(posts.createdAt),
       where: (posts, { eq }) => eq(posts.published, true),
     });
 
-    return posts.map(this.mapToPostModel);
+    return posts;
   }
 
   async findBySlugPublic(slug: string): Promise<PostModel> {
-    await asyncDelay(SIMULATE_WAIT_IN_MS, true);
+    // await asyncDelay(SIMULATE_WAIT_IN_MS, true);
     logColor("findBySlugPublic", Date.now());
+
     const post = await drizzleDb.query.posts.findFirst({
-      orderBy: (posts, { desc }) => desc(posts.createdAt),
       where: (posts, { eq, and }) =>
-        and(eq(posts.slug, slug), eq(posts.published, true)),
+        and(eq(posts.published, true), eq(posts.slug, slug)),
     });
 
     if (!post) throw new Error("Post não encontrado para slug");
 
-    return this.mapToPostModel(post);
+    return post;
   }
 
   async findAll(): Promise<PostModel[]> {
-    await asyncDelay(SIMULATE_WAIT_IN_MS, true);
+    // await asyncDelay(SIMULATE_WAIT_IN_MS, true);
     logColor("findAll", Date.now());
+
     const posts = await drizzleDb.query.posts.findMany({
       orderBy: (posts, { desc }) => desc(posts.createdAt),
     });
 
-    return posts.map(this.mapToPostModel);
+    return posts;
   }
 
   async findById(id: string): Promise<PostModel> {
-    await asyncDelay(SIMULATE_WAIT_IN_MS, true);
+    // await asyncDelay(SIMULATE_WAIT_IN_MS, true);
     logColor("findById", Date.now());
+
     const post = await drizzleDb.query.posts.findFirst({
       where: (posts, { eq }) => eq(posts.id, id),
     });
 
     if (!post) throw new Error("Post não encontrado para id");
 
-    return this.mapToPostModel(post);
+    return post;
+  }
+
+  async create(post: PostModel): Promise<PostModel> {
+    const postExists = await drizzleDb.query.posts.findFirst({
+      where: (posts, { or, eq }) =>
+        or(eq(posts.id, post.id), eq(posts.slug, post.slug)),
+      columns: { id: true },
+    });
+
+    if (!!postExists) {
+      throw new Error("Post com ID ou Slug já existe na base de dados");
+    }
+
+    await drizzleDb.insert(postsTable).values(post);
+    return post;
+  }
+
+  async delete(id: string): Promise<PostModel> {
+    const post = await drizzleDb.query.posts.findFirst({
+      where: (posts, { eq }) => eq(posts.id, id),
+    });
+
+    if (!post) {
+      throw new Error("Post não existe");
+    }
+
+    await drizzleDb.delete(postsTable).where(eq(postsTable.id, id));
+
+    return post;
+  }
+
+  async update(
+    id: string,
+    newPostData: Omit<PostModel, "id" | "slug" | "createdAt" | "updatedAt">,
+  ): Promise<PostModel> {
+    const oldPost = await drizzleDb.query.posts.findFirst({
+      where: (posts, { eq }) => eq(posts.id, id),
+    });
+
+    if (!oldPost) {
+      throw new Error("Post não existe");
+    }
+
+    const updatedAt = new Date();
+    const postData = {
+      author: newPostData.author,
+      content: newPostData.content,
+      coverImageUrl: newPostData.coverImageUrl,
+      excerpt: newPostData.excerpt,
+      published: newPostData.published,
+      title: newPostData.title,
+      updatedAt,
+    };
+    await drizzleDb
+      .update(postsTable)
+      .set(postData)
+      .where(eq(postsTable.id, id));
+
+    return {
+      ...oldPost,
+      ...postData,
+    };
   }
 }
