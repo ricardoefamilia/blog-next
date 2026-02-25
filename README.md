@@ -63,6 +63,10 @@ cd blog-next
 
 ## 2️⃣ Subir o banco de dados (Docker)
 
+```docker-compose.yml:
+Modelo: docker-compose-example.yml
+```
+
 ```bash
 docker compose up -d
 ```
@@ -91,7 +95,9 @@ docker ps
 Na raiz do projeto:
 
 ```env
-DATABASE_URL=postgresql://postgres:admin123@localhost:5433/blognext
+Variáveis de ambiente
+Modelo: .env-example
+
 ```
 
 ---
