@@ -26,7 +26,6 @@ export async function deletePostAction(id: string) {
     };
   }
 
-  // TODO: revalidateTag ou revalidatePath
   revalidateTag("posts", "max");
   revalidateTag(`posts-${post.slug}`, "max");
 

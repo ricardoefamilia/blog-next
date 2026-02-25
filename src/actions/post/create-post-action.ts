@@ -9,7 +9,6 @@ import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { v4 as uuidV4 } from "uuid";
 import { PostModel } from "@/models/post/post-model";
-import { asyncDelay } from "@/utils/async-delay";
 
 type CreatePostActionState = {
   formState: PublicPost;
@@ -22,8 +21,6 @@ export async function createPostAction(
   formData: FormData,
 ): Promise<CreatePostActionState> {
   // TODO: verificar se o usuário tá logado
-
-  await asyncDelay(1000);
 
   if (!(formData instanceof FormData)) {
     return {
@@ -58,13 +55,13 @@ export async function createPostAction(
   } catch (e: unknown) {
     if (e instanceof Error) {
       return {
-        formState: newPost,
+        formState: makePartialPublicPost(newPost),
         errors: [e.message],
       };
     }
 
     return {
-      formState: newPost,
+      formState: makePartialPublicPost(newPost),
       errors: ["Erro desconhecido"],
     };
   }

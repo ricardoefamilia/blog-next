@@ -1,7 +1,7 @@
 import { formatDatetime, formatDistanceToNow } from "@/utils/format-datetime";
 
 type PostDateProps = {
-  dateTime: string;
+  dateTime: string; // 👈 agora string
 };
 
 export function PostDate({ dateTime }: PostDateProps) {

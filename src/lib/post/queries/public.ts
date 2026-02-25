@@ -1,3 +1,4 @@
+import { makePublicPostFromDb } from "@/dto/post/dto";
 import { postRepository } from "@/repositories/post";
 import { unstable_cache } from "next/cache";
 import { notFound } from "next/navigation";
@@ -6,7 +7,8 @@ import { cache } from "react";
 export const findAllPostsPublicCached = cache(
   unstable_cache(
     async () => {
-      return await postRepository.findAllPublic();
+      const posts = await postRepository.findAllPublic();
+      return posts.map(makePublicPostFromDb);
     },
     ["posts"],
     {
@@ -24,7 +26,7 @@ export const findPostPublicBySlugCached = cache((slug: string) => {
 
       if (!post) notFound();
 
-      return post;
+      return makePublicPostFromDb(post);
     },
     [`post-${slug}`],
     { tags: [`post-${slug}`] },

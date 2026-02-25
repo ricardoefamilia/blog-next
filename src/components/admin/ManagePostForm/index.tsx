@@ -6,11 +6,11 @@ import { InputText } from "@/components/InputText";
 import { MarkdownEditor } from "@/components/MarkdownEditor";
 import { useActionState, useEffect, useState } from "react";
 import { ImageUploader } from "../ImageUploader";
-import { makePartialPublicPost, PublicPost } from "@/dto/post/dto";
 import { createPostAction } from "@/actions/post/create-post-action";
 import { toast } from "react-toastify";
 import { updatePostAction } from "@/actions/post/update-post-action";
 import { useRouter, useSearchParams } from "next/navigation";
+import { PublicPost } from "@/dto/post/dto";
 
 type ManagePostFormUpdateProps = {
   mode: "update";
@@ -42,9 +42,20 @@ export function ManagePostForm(props: ManagePostFormProps) {
   };
 
   const initialState = {
-    formState: makePartialPublicPost(publicPost),
+    formState: publicPost ?? {
+      id: "",
+      slug: "",
+      title: "",
+      excerpt: "",
+      author: "",
+      content: "",
+      coverImageUrl: "",
+      createdAt: "",
+      published: false,
+    },
     errors: [],
   };
+
   const [state, action, isPending] = useActionState(
     actionsMap[mode],
     initialState,

@@ -1,16 +1,15 @@
-import { formatDatetime, formatDistanceToNow } from "@/utils/format-datetime";
 import { PostHeading } from "../PostHeading";
 import { PostDate } from "../PostDate";
 
 type PostSummaryProps = {
   postHeading: "h1" | "h2";
   postLink: string;
-  createdAt: string;
+  createdAt: string; // 👈 agora string
   title: string;
   excerpt: string;
 };
 
-export async function PostSummary({
+export function PostSummary({
   postHeading,
   postLink,
   createdAt,

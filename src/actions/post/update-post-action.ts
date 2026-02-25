@@ -9,7 +9,6 @@ import { PostUpdateSchema } from "@/lib/post/validations";
 import { postRepository } from "@/repositories/post";
 import { getZodErrorMessages } from "@/utils/get-zod-error-messages";
 import { revalidateTag } from "next/cache";
-import { asyncDelay } from "@/utils/async-delay";
 import { makeRandomString } from "@/utils/make-random-string";
 
 type UpdatePostActionState = {
@@ -23,8 +22,6 @@ export async function updatePostAction(
   formData: FormData,
 ): Promise<UpdatePostActionState> {
   // TODO: verificar se o usuário tá logado
-
-  await asyncDelay(1000);
 
   if (!(formData instanceof FormData)) {
     return {

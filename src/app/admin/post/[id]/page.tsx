@@ -20,7 +20,7 @@ export default async function AdminPostIdPage({
   params,
 }: AdminPostIdPageProps) {
   const { id } = await params;
-  const post = await findPostAdminById(id).catch();
+  const post = await findPostAdminById(id).catch(() => undefined);
 
   if (!post) notFound();
 

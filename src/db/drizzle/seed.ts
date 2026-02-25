@@ -34,7 +34,6 @@ async function main() {
     //     updatedAt: new Date(),
     //   },
     // });
-    console.log(`${posts.length} Posts inseridos com sucesso!`);
   } catch (error) {
     console.error("Erro ao inserir posts:", error);
   } finally {
