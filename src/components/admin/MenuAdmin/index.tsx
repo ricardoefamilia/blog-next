@@ -9,16 +9,10 @@ import {
   PlusIcon,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function MenuAdmin() {
   const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
 
   const navClasses = clsx(
     "bg-slate-900 text-slate-100 rounded-lg",
@@ -66,7 +60,19 @@ export function MenuAdmin() {
         <HouseIcon />
         Home
       </a>
-      <Link className={linkClasses} href="/admin/post/new">
+      <Link
+        className={linkClasses}
+        href="/admin/post"
+        onClick={() => setIsOpen(false)}
+      >
+        <FileTextIcon />
+        Posts
+      </Link>
+      <Link
+        className={linkClasses}
+        href="/admin/post/new"
+        onClick={() => setIsOpen(false)}
+      >
         <PlusIcon />
         Criar post
       </Link>

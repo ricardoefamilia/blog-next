@@ -13,8 +13,9 @@ export function ThemeToggleButton() {
       className={clsx(
         "absolute top-4 right-4 px-4 py-2 rounded-md font-medium transition",
         isDark
-          ? "bg-slate-700 text-slate-100 hover:bg-slate-600"
-          : "bg-slate-200 text-slate-900 hover:bg-slate-300",
+          ? "bg-slate-700 hover:bg-slate-600"
+          : "bg-slate-200 hover:bg-slate-300",
+        isDark ? "text-slate-100" : "text-slate-900",
       )}
     >
       {isDark ? (

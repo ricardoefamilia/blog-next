@@ -49,9 +49,15 @@ export async function uploadImageAction(
 
   await writeFile(fileFullPath, buffer);
 
-  const imgServerUrl =
-    process.env.IMAGE_SERVER_URL || "http://localhost:3000/uploads";
-  const url = `${imgServerUrl}/${uniqueImageName}`;
+  const baseUrl = process.env.IMAGE_SERVER_URL?.trim();
+
+  let url: string;
+
+  if (baseUrl) {
+    url = `${baseUrl}/${uniqueImageName}`;
+  } else {
+    url = `/${uploadDir}/${uniqueImageName}`;
+  }
 
   return makeResult({ url });
 }
