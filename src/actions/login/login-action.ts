@@ -1,21 +1,19 @@
 "use server";
 
 import { asyncDelay } from "@/utils/async-delay";
-import { verifyPassword } from "@/lib/login/manage-login";
+import { createLoginSession, verifyPassword } from "@/lib/login/manage-login";
 
 type LoginActionState = {
   username: string;
   error: string;
+  success?: boolean;
 };
 
-export async function loginAction(state: LoginActionState, formData: FormData) {
-  await asyncDelay(2000); // Vou manter
-  if (!(formData instanceof FormData)) {
-    return {
-      username: "",
-      error: "Dados inválidos",
-    };
-  }
+export async function loginAction(
+  state: LoginActionState,
+  formData: FormData,
+): Promise<LoginActionState> {
+  await asyncDelay(2000);
 
   // Dados que o usuário digitou no form
   const username = formData.get("username")?.toString().trim() || "";
@@ -42,12 +40,11 @@ export async function loginAction(state: LoginActionState, formData: FormData) {
     };
   }
 
-  // TODO: abaixo
-  // Aqui o usuário e senha são válidos
-  // Criar o cookie e redirecionar a página
+  await createLoginSession(username);
 
   return {
     username,
-    error: "USUÁRIO LOGADO COM SUCESSO!",
+    error: "",
+    success: true, // 👈 sinaliza sucesso
   };
 }

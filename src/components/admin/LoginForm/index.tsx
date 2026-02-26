@@ -7,20 +7,32 @@ import clsx from "clsx";
 import { LogInIcon } from "lucide-react";
 import { useActionState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export function LoginForm() {
+  const router = useRouter();
+
   const initialState = {
     username: "",
     error: "",
+    success: false,
   };
   const [state, action, isPending] = useActionState(loginAction, initialState);
 
+  // 🔔 erros
   useEffect(() => {
     if (state.error) {
       toast.dismiss();
       toast.error(state.error);
     }
-  }, [state]);
+  }, [state.error]);
+
+  // ✅ sucesso → redirect
+  useEffect(() => {
+    if (state.success) {
+      router.push("/admin/post");
+    }
+  }, [state.success, router]);
 
   return (
     <div
@@ -52,7 +64,7 @@ export function LoginForm() {
           Entrar
         </Button>
 
-        {!!state.error && <p className="text-red-600">{state.error}</p>}
+        {/* {!!state.error && <p className="text-red-600">{state.error}</p>} */}
       </form>
     </div>
   );
