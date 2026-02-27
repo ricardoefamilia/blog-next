@@ -13,6 +13,16 @@ export async function loginAction(
   state: LoginActionState,
   formData: FormData,
 ): Promise<LoginActionState> {
+  // ALLOW_LOGIN permite ou não rodar a página do login
+  const allowLogin = Boolean(Number(process.env.ALLOW_LOGIN));
+
+  if (!allowLogin) {
+    return {
+      username: "",
+      error: "Login não permitido",
+    };
+  }
+
   await asyncDelay(2000);
 
   // Dados que o usuário digitou no form
